@@ -6,6 +6,7 @@ import { UserType } from '@users/types/user.type';
 @Injectable()
 export class JsonDataService {
   pathFile = './data/users.json';
+  encoding = 'utf-8' as BufferEncoding;
 
   public async GetData(): Promise<UserType[]> {
     try {
@@ -13,7 +14,7 @@ export class JsonDataService {
         await this.WriteData([]);
       }
 
-      const rawData = fs.readFileSync(this.pathFile, 'utf-8');
+      const rawData = fs.readFileSync(this.pathFile, this.encoding);
 
       return JSON.parse(rawData);
     } catch (error) {
@@ -25,7 +26,7 @@ export class JsonDataService {
   public async WriteData(data: UserType[]): Promise<boolean> {
     try {
       const jsonData = JSON.stringify(data, null, 2);
-      fs.writeFileSync(this.pathFile, jsonData, 'utf-8');
+      fs.writeFileSync(this.pathFile, jsonData, this.encoding);
 
       return true;
     } catch (error) {
