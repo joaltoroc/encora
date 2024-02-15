@@ -13,7 +13,7 @@ export const Paginate = createParamDecorator(
 
     return {
       page: query.page ? parseInt(query.page.toString(), 10) : 1,
-      size: query.limit ? parseInt(query.limit.toString(), 10) : 10,
+      size: query.size ? parseInt(query.size.toString(), 10) : 10,
     };
   },
 );

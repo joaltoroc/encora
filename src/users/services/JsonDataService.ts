@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 import { UserType } from '@users/types/user.type';
 
@@ -18,20 +18,16 @@ export class JsonDataService {
 
       return JSON.parse(rawData);
     } catch (error) {
-      console.error(error);
-      return null;
+      throw new InternalServerErrorException(error);
     }
   }
 
-  public async WriteData(data: UserType[]): Promise<boolean> {
+  public async WriteData(data: UserType[]): Promise<void> {
     try {
       const jsonData = JSON.stringify(data, null, 2);
       fs.writeFileSync(this.pathFile, jsonData, this.encoding);
-
-      return true;
     } catch (error) {
-      console.error(error);
-      return false;
+      throw new InternalServerErrorException(error);
     }
   }
 }

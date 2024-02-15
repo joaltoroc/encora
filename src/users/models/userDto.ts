@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-
 import {
   IsEmail,
   IsNotEmpty,
@@ -11,20 +10,18 @@ import {
 import type { UserType } from '@users/types';
 
 export class UserDto implements UserType {
+  @ApiProperty({ minimum: 6 })
   @IsNotEmpty()
   @Matches(/^[a-zA-Z0-9\s]+$/)
   @MinLength(6)
-  @ApiProperty({
-    minimum: 6,
-  })
   name: string;
 
-  @IsNotEmpty()
-  @IsEmail()
   @ApiProperty()
+  @IsEmail()
+  @IsNotEmpty()
   email: string;
 
-  @IsOptional()
   @ApiProperty()
+  @IsOptional()
   address?: string;
 }

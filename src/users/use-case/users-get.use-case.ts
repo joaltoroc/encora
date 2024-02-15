@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
+import type { Paginated, PaginateQuery } from '@shared/paginate';
+
 import { JsonDataService } from '@users/services/JsonDataService';
 
-import type { Paginated, PaginateQuery } from '@shared/paginate';
 import type { UserType } from '@users/types';
 
 @Injectable()
